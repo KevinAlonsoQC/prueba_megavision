@@ -13,6 +13,8 @@ public class UsuarioModel {
 
     private String name;
     private String email;
+    private String password;
+    private String rol;
     private String registrationDate;
 
     @ManyToOne
@@ -34,6 +36,22 @@ public class UsuarioModel {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
     }
 
     public String getEmail() {

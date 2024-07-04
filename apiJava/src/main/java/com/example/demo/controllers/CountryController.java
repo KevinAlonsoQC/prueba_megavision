@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/Country")
+@CrossOrigin(origins = "http://localhost:8100") // Permite solicitudes desde tu aplicación Angular
 public class CountryController {
     @Autowired
     CountryService countryService;

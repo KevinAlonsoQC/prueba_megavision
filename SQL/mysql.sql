@@ -30,3 +30,6 @@ INSERT INTO Client (name, email, password, registration_date, country_id) VALUES
 ('John Doe', 'john.doe@example.com', '123456789', '2023-01-15', 1),
 ('Jane Smith', 'jane.smith@example.com', '123456789', '2023-02-01', 2),
 ('Alice Johnson', 'alice.johnson@example.com', '123456789', '2023-03-05', 3);
+
+ALTER TABLE `client` ADD `rol` VARCHAR(40) NOT NULL DEFAULT 'user' AFTER `password`;
+UPDATE `client` SET `rol` = 'admin' WHERE `client`.`id` = 1;

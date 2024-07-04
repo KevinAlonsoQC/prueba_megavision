@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/Client")
+@CrossOrigin(origins = "http://localhost:8100") // Permite solicitudes desde tu aplicación Angular
 public class UsuarioController {
     @Autowired
     UsuarioService usuarioService;
