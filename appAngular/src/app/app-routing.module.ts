@@ -22,7 +22,7 @@ const routes: Routes = [
   {
     path: 'crear-cliente',
     loadChildren: () => import('./Clientes/crear-cliente/crear-cliente.module').then( m => m.CrearClientePageModule),
-    canActivate: [NoIngresadoGuard]
+    canActivate: [IngresadoGuard]
   },
   {
     path: 'modificar-cliente/:idCliente',

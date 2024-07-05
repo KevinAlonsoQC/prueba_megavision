@@ -7,14 +7,22 @@ import { IonicModule } from '@ionic/angular';
 import { ListarClientePageRoutingModule } from './listar-cliente-routing.module';
 
 import { ListarClientePage } from './listar-cliente.page';
+import { HttpClientModule } from '@angular/common/http';
+
+import { ApiService } from '../../servicio/api.service';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ListarClientePageRoutingModule
+    ListarClientePageRoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule
   ],
-  declarations: [ListarClientePage]
+  declarations: [ListarClientePage],
+  providers: [ApiService]
 })
 export class ListarClientePageModule {}

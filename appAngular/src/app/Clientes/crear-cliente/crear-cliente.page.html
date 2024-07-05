@@ -1,81 +1,26 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Añadir Producto</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-  <form [formGroup]="formulario" novalidate (ngSubmit)="saveCuenta()" >
-    <ion-item>
-      <ion-label position="floating">Nombre</ion-label>
-      <ion-input type="text" formControlName="name"></ion-input>
-
-      <ion-note slot="error" *ngIf="campo('name').invalid  && campo('name').errors && campo('name').errors.required && fueTocado('name')">
-        Este campo es requerido
-      </ion-note>
-      <ion-note slot="error" *ngIf="campo('name').invalid  && campo('name').errors && campo('name').errors.maxlength && fueTocado('name')">
-        Los caracteres maximos son 30
-      </ion-note>
-      <ion-note slot="error" *ngIf="campo('name').invalid  && campo('name').errors && campo('name').errors.minlength && fueTocado('name')">
-        Los caracteres maximos son 2
-      </ion-note>
-    </ion-item>
-
-    <ion-item>
-      <ion-label position="floating">Email</ion-label>
-      <ion-input type="email" formControlName="email"></ion-input>
-
-      <ion-note slot="error" *ngIf="campo('email').invalid  && campo('email').errors && campo('email').errors.required && fueTocado('email')">
-        Este campo es requerido
-      </ion-note>
-      <ion-note slot="error" *ngIf="campo('email').invalid  && campo('email').errors && campo('email').errors.maxlength && fueTocado('email')">
-        Los caracteres maximos son 30
-      </ion-note>
-      <ion-note slot="error" *ngIf="campo('email').invalid  && campo('email').errors && campo('email').errors.minlength && fueTocado('email')">
-        Los caracteres mínmos son 6
-      </ion-note>
-      <ion-note slot="error" *ngIf="campo('email').invalid  && campo('email').errors && campo('email').errors.email && fueTocado('email')">
-        Ingresa un email válido
-      </ion-note>
-    </ion-item>
-
-    <ion-item>
-      <ion-label>Contraseña</ion-label>
-      <ion-input type="password" formControlName="password"></ion-input>
-      <ion-note>Pin de 4 Dígitos sobre 1</ion-note>
-
-      <ion-note slot="error" *ngIf="campo('password').invalid  && campo('password').errors && campo('password').errors.required && fueTocado('password')">
-        Este campo es requerido
-      </ion-note>
-      <ion-note slot="error" *ngIf="campo('password').invalid  && campo('password').errors && campo('password').errors.min && fueTocado('password')">
-        Ingresa un mínimo de 4 dígitos sobre 1
-      </ion-note>
-      <ion-note slot="error" *ngIf="campo('password').invalid  && campo('password').errors && campo('password').errors.max && fueTocado('password')">
-        El máximo de dígitos es 4 sobre 1
-      </ion-note>
-    </ion-item>
-
-    <ion-item>
-      <ion-select #id_popover interface="popover" placeholder="Administrador" formControlName="admin">
-        <ion-select-option value=1>Si</ion-select-option>
-        <ion-select-option value=0 ng-checked>No</ion-select-option>
-      </ion-select>
-    </ion-item>
-
-    <ion-item>
-      <ion-select #id_pais interface="popover" placeholder="País" formControlName="country_id">
-        <ion-select-option value=1 ng-checked>Chile</ion-select-option>
-        <ion-select-option value=2>Argentina</ion-select-option>
-        <ion-select-option value=3>Perú</ion-select-option>
-      </ion-select>
-    </ion-item>
-
-    <ion-item>
-      <ion-button [disabled]="formulario.invalid" role="submit" type="submit">Registrarme</ion-button>
-    </ion-item>
-  </form>
-
-  <ion-button color="warning" [routerLink]="['/']">
-    <ion-icon name="arrow-back-outline"></ion-icon> Volver
-  </ion-button>
-</ion-content>
+<form [formGroup]="formulario" (ngSubmit)="createCliente()">
+  <ion-item>
+    <ion-label>Name</ion-label>
+    <ion-input formControlName="name"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Email</ion-label>
+    <ion-input formControlName="email"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Password</ion-label>
+    <ion-input type="password" formControlName="password"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Role</ion-label>
+    <ion-select formControlName="rol">
+      <ion-select-option value="0">User</ion-select-option>
+      <ion-select-option value="1">Admin</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label>Country ID</ion-label>
+    <ion-input formControlName="country_id"></ion-input>
+  </ion-item>
+  <ion-button expand="full" type="submit">Crear Cliente</ion-button>
+</form>

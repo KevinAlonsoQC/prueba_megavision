@@ -24,7 +24,6 @@ export class ApiService {
   getClientes(): Observable<ClienteID[]> {
     return this.http.get<ClienteID[]>(`${this.apiUrl}/Client/`, httpOptions);
   }
-
   // Obtener un cliente por ID
   getCliente(id: number): Observable<ClienteID> {
     return this.http.get<ClienteID>(`${this.apiUrl}/Client/${id}`, httpOptions);

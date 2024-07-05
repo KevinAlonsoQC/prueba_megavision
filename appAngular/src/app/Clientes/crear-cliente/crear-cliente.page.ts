@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from '../../servicio/api.service';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-crear-cliente',
@@ -15,7 +16,8 @@ export class CrearClientePage implements OnInit {
   constructor(
     private api: ApiService,
     private _builder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private alertController: AlertController
   ) {
     this.formulario = this._builder.group({
       name: [
@@ -66,45 +68,43 @@ export class CrearClientePage implements OnInit {
     })
   }
 
-  campo(control: string) {
-    return this.formulario.get(control);
-  }
-
-  fueTocado(control: string){
-    return this.formulario.get(control).touched;
-  }
-
-  estaSucio(control: string){
-    return this.formulario.get(control).dirty;
-  }
-
   ngOnInit() {
   }
 
-  saveCuenta(): void {
-    if(this.formulario.invalid){
-      this.formulario.markAllAsTouched();
-      return;
-    }
+  async createCliente() {
+    const alert = await this.alertController.create({
+      header: '¿Seguro de Crear este Cliente?',
+      subHeader: 'Cliente: ' + this.formulario.value.name,
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'danger',
+        },
+        {
+          text: 'Crear',
+          handler: () => {
+            if (this.formulario.value.admin == 1) {
+              this.formulario.value.admin = 'admin';
+            } else {
+              this.formulario.value.admin = 'user';
+            }
 
-    if(this.formulario.value.admin == 1){
-      this.formulario.value.admin = 'admin';
-    }
-    else{
-      this.formulario.value.admin = 'user';
-    }
+            this.formulario.value.registration_date = new Date().toISOString().split('T')[0];
 
-    this.formulario.value.registration_date = new Date().toISOString().split('T')[0];
-
-    this.api.addCliente({...this.formulario.value}).subscribe(resultado =>
-      {
-        if(resultado){
-          this.formulario.reset();
-          this.formulario.updateValueAndValidity();
-          this.router.navigate(['']);
+            this.api.addCliente({ ...this.formulario.value }).subscribe(resultado => {
+              if (resultado) {
+                this.formulario.reset();
+                this.formulario.updateValueAndValidity();
+                this.router.navigate(['index']);
+              }
+            });
+          }
         }
-      }
-    )
+      ]
+    });
+
+    await alert.present();
   }
 
 }

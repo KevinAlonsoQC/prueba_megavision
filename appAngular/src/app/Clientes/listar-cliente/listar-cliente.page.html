@@ -1,9 +1,46 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>listar-cliente</ion-title>
+    <ion-title>Clientes</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-fab *ngIf="admin" vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="crearCliente()">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 
+  <div *ngFor="let pro of clientes">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>{{ pro.name }}</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-label>
+          <ion-chip>{{pro.email}}</ion-chip>
+        </ion-label>
+      </ion-card-content>
+
+      <!--Para los administradores-->
+      <ion-card-content *ngIf="admin" style="display: flex; justify-content: space-between;">
+        <ion-button color="danger" (click)="deleteCliente(pro)">
+          <ion-icon name="trash-outline"></ion-icon>
+        </ion-button>
+
+        <ion-button color="primary" (click)="updateCliente(pro)">
+          <ion-icon name="pencil-outline"></ion-icon>
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+    <br>
+  </div>
 </ion-content>
+
+
+<ion-footer>
+  <ion-button color="warning" [routerLink]="['/index']">
+    <ion-icon name="arrow-back-outline"></ion-icon> Volver
+  </ion-button>
+</ion-footer>
